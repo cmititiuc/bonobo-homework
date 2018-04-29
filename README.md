@@ -1,3 +1,21 @@
+## instructions
+
+Make sure you have MySQL installed.
+
+In `/` directory:
+
+    rails db:setup
+    rails s
+
+In `/web` directory:
+
+    npm install
+    npm start
+
+Visit `localhost:3001`
+
+## notes
+
 new rails app without minitest, with mysql, api only
 
     $ rails new application_name -T -d mysql --api
