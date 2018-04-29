@@ -31,6 +31,14 @@ large enough dataset, it would slow down searches for exact matches.
 2. Return multiple results if more than one matches (for example 'jeans' matches
 more than one product).
 
+3. Add more search examples to the tests.
+
+4. Fix the url for the 'washed chinos' product image.
+
+5. Use React for the front-end so that it's easier to build upon later if necessary.
+
+6. Style the front-end to make it more presentable.
+
 ## questions
 
 1. "Inventory information should be grouped by product."
