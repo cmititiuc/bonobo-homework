@@ -7,5 +7,6 @@ class CreateProducts < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
+    add_index :products, :product_name, name: 'product_name', type: :fulltext
   end
 end

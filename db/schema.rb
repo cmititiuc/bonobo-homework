@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20180429180408) do
     t.text "product_description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["product_name"], name: "product_name", type: :fulltext
   end
 
   create_table "variants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
