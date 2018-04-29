@@ -1,5 +1,4 @@
 # seed products
-Product.destroy_all
 File.foreach('inventory_data/products.csv').with_index do |line, line_num|
    next if line_num == 0
    product_data = line.split("\",")
@@ -16,13 +15,11 @@ File.foreach('inventory_data/products.csv').with_index do |line, line_num|
 end
 
 # seed inventory
-Variant.destroy_all
-products = Product.all
 File.foreach('inventory_data/inventory.csv').with_index do |line, line_num|
   next if line_num == 0
   inventory_data = line.split(', ')
 
-  product = products.find(inventory_data[0].to_i)
+  product = Product.find(inventory_data[0].to_i)
   waist   = inventory_data[1].to_i
   length  = inventory_data[2].to_i
   style   = inventory_data[3]
