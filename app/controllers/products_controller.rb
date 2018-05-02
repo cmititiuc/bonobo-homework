@@ -1,10 +1,7 @@
 class ProductsController < ApplicationController
   def search
-    product =
-      ProductSerializer
-        .new(Product.search(params[:q]), { include: [:variants] })
-        .serialized_json
+    products = ProductSerializer.new(Product.search(params[:q])).serialized_json
 
-    render json: product
+    render json: products
   end
 end

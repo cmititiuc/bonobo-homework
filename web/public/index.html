@@ -31,26 +31,30 @@
           return response.json();
         })
         .then(function(results) {
-          if (results.data === null) {
+          if (results.data.length == 0) {
             $('#results').html('<p>No results matched your query.</p>');
             return;
           }
 
           $('#results').html(
-            '<h2>' + results.data.attributes.product_name + '</h2>'
-            + '<p>' + results.data.attributes.product_description + '</p>'
-            + '<img src="' + results.data.attributes.product_image + '" />'
-            + '<table><thead><tr><th>Waist</th><th>Length</th><th>Style</th><th>Count</th></tr></thead><tbody>'
-            + results.included.map(function(variant) {
+            results.data.reduce(function(acc, result) {
               return (
-                '<tr><td>' + variant.attributes.waist
-                + '</td><td>' + variant.attributes.length
-                + '</td><td>' + variant.attributes.style
-                + '</td><td>' + variant.attributes.count
-                + '</td></tr>'
-              );
-            }).join('') +
-            '</tbody></table>'
+                acc + '<h2>' + result.attributes.product_name + '</h2>'
+                + '<p>' + result.attributes.product_description + '</p>'
+                + '<img src="' + result.attributes.product_image + '" />'
+                + '<table><thead><tr><th>Waist</th><th>Length</th><th>Style</th><th>Count</th></tr></thead><tbody>'
+                + result.attributes.variants.map(function(variant) {
+                  return (
+                    '<tr><td>' + variant.waist
+                    + '</td><td>' + variant.length
+                    + '</td><td>' + variant.style
+                    + '</td><td>' + variant.count
+                    + '</td></tr>'
+                  );
+                }).join('') +
+                '</tbody></table>'
+              )
+            }, '')
           );
         });
     });
