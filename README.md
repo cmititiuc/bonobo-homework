@@ -16,37 +16,19 @@ Visit `localhost:3001`
 
 ## approach
 
-I know the way I've implemented search before was using MySQL's `LIKE` operator
-but due to the given example I didn't think that would work well. After doing
-some googling I discovered MySQL's full-text search functions could do the job.
-First, the app searches for the exact string in the search term and if it doesn't
-find a record, then it searches again using the full-text search function.  I
-did this because I read the full-text search functions can be slow and, given a
-large enough dataset, it would slow down searches for exact matches.
+In order to return correct results from a search query such as `washed chimp` I
+used MySQL's full-text search function `MATCH...AGAINST`.  This worked ok for
+that search term, but for a term such as `travel jeans`, which should be
+an exact match, I was getting results for `jetsetter jeans` as well.  To account
+for this, I first search the database for the exact query in the search input
+and if no results are found, then I search the database again using the
+`MATCH...AGAINST` function.  This gives me the correct results when searching
+for an exact match as well as similar results when only 1 word in the search term
+matches.  Next, I split the search term and used MySQL's `LIKE` operator and `%`
+wildcard to match any partial words, such as `wash` or even `wash chi`.
 
 ## improvements
 
-1. The search could be improved by using a service such as ElasticSearch.
+1. Use a gem for the search functionality
 
-2. Return multiple results if more than one matches (for example 'jeans' matches
-more than one product).
-
-3. Add more search examples to the tests.
-
-4. Fix the url for the 'washed chinos' product image.
-
-5. Use React for the front-end so that it's easier to build upon later if necessary.
-
-6. Style the front-end to make it more presentable.
-
-## questions
-
-1. "Inventory information should be grouped by product."
-
-Is it supposed to return more than one product? It no, then what does this mean?
-
-2. The washed chinos image is not resolving.
-
-3. How much polish on Goal #3?
-
-4. How many tests are expected?
+2. Find a way to only hit the database once

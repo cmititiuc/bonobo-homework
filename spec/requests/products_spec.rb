@@ -36,6 +36,12 @@ RSpec.describe "Products", type: :request do
       expect(get_product_names(response.body)).to match_array(['washed chinos'])
     end
 
+    it "returns correct products when search term matches exactly" do
+      get products_search_path(q: 'travel jeans')
+
+      expect(get_product_names(response.body)).to match_array(['travel jeans'])
+    end
+
     it "returns nothing when no matches" do
       get products_search_path(q: 'blah')
 
